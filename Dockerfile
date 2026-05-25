@@ -26,6 +26,10 @@ RUN npm run build
 
 RUN php artisan config:clear
 
+RUN touch database/database.sqlite
+
+RUN php artisan migrate --force
+
 EXPOSE 10000
 
 CMD php artisan serve --host=0.0.0.0 --port=10000
