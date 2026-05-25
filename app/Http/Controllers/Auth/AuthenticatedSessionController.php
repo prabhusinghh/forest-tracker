@@ -8,6 +8,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\ApprovedUserMiddleware;
+use App\Models\User;
+use Illuminate\Support\Facades\URL;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if(auth()->user()->role === 'admin')
+        if(Auth::check() && Auth::user()->role === 'admin')
 {
     return redirect('/admin/pending-users');
 }
@@ -49,4 +53,10 @@ return redirect('/reports');
 
         return redirect('/');
     }
+    public function boot(): void
+{
+    if(app()->environment('production')) {
+        URL::forceScheme('https');
+    }
+}
 }
