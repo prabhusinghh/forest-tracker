@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    npm
+    npm \
+    libpq-dev
 
 RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql
 
