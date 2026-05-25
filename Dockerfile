@@ -27,7 +27,6 @@ RUN npm run build
 
 RUN php artisan config:clear
 
-RUN touch database/database.sqlite
 
 RUN php artisan migrate --force
 
