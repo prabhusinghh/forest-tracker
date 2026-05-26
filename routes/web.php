@@ -6,7 +6,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
-    return redirect('/reports');
+    $stats = [
+        'reports' => \App\Models\Report::count(),
+        'endangered' => \App\Models\Report::where('status', 'Endangered')->count(),
+        'conservationists' => \App\Models\User::count(),
+        'regions' => \App\Models\Report::distinct('location')->count(),
+    ];
+    return view('welcome', compact('stats'));
 });
 
 Route::resource('reports', ReportController::class)
