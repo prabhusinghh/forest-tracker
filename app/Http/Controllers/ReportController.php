@@ -71,11 +71,19 @@ class ReportController extends Controller
         return redirect('/reports');
     }
     public function edit($id)
-    {
+{
     $report = Report::findOrFail($id);
 
-    return view('reports.edit', compact('report'));
+    if(
+        Auth::id() != $report->user_id &&
+        Auth::user()->role != 'admin'
+    )
+    {
+        abort(403);
     }
+
+    return view('reports.edit', compact('report'));
+}
 
     public function update(Request $request, $id)
     {
@@ -88,6 +96,13 @@ class ReportController extends Controller
     'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
     ]);
     $report = Report::findOrFail($id);
+    if(
+    Auth::id() != $report->user_id &&
+    Auth::user()->role != 'admin'
+)
+{
+    abort(403);
+}
     $imagePath = $report->image;
 
     if($request->hasFile('image'))
@@ -110,6 +125,13 @@ class ReportController extends Controller
     public function destroy($id)
     {
     $report = Report::findOrFail($id);
+    if(
+    Auth::id() != $report->user_id &&
+    Auth::user()->role != 'admin'
+)
+{
+    abort(403);
+}
 
     $report->delete();
 
