@@ -10,7 +10,7 @@
             Wildlife Reports
         </h1>
         
-        <a href="/reports/create"
+        <a href="{{ url('/reports/create') }}"
            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
 
             Add Report
@@ -19,7 +19,7 @@
 
     </div>
     <form method="GET"
-      action="/reports"
+      action="{{ url('/reports') }}"
       class="bg-white p-4 rounded shadow mb-6">
 
     <div class="grid grid-cols-3 gap-4">
@@ -123,14 +123,14 @@
 
                     <td class="p-3 flex gap-2">
                     @if(auth()->id() == $report->user_id || auth()->user()->role == 'admin')
-                        <a href="/reports/{{ $report->id }}/edit"
+                        <a href="{{ url('/reports/' . $report->id . '/edit') }}"
                            class="bg-blue-500 text-white px-3 py-1 rounded">
 
                             Edit
 
                         </a>
 
-                        <form action="/reports/{{ $report->id }}"
+                        <form action="{{ url('/reports/' . $report->id) }}"
                               method="POST">
 
                             @csrf

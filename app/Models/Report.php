@@ -11,6 +11,7 @@ class Report extends Model
         'location',
         'status',
         'description',
-        'image'
+        'image',
+        'user_id'
     ];
 }

@@ -28,7 +28,7 @@
 
         @endif
 
-        <form action="/reports"
+        <form action="{{ url('/reports') }}"
               method="POST"
               enctype="multipart/form-data">
 
@@ -135,7 +135,7 @@
 
                 </button>
 
-                <a href="/reports"
+                <a href="{{ url('/reports') }}"
                    class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg shadow">
 
                     Cancel

@@ -68,7 +68,7 @@ class ReportController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return redirect('/reports');
+        return redirect(url('/reports'));
     }
     public function edit($id)
 {
@@ -119,7 +119,7 @@ class ReportController extends Controller
         'image' => $imagePath
     ]);
 
-    return redirect('/reports');
+    return redirect(url('/reports'));
     }
 
     public function destroy($id)
@@ -135,6 +135,6 @@ class ReportController extends Controller
 
     $report->delete();
 
-    return redirect('/reports');
+    return redirect(url('/reports'));
     }
 }

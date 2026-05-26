@@ -35,7 +35,7 @@
 
             <td class="p-3">
 
-                <form action="/admin/approve/{{ $user->id }}"
+                <form action="{{ url('/admin/approve/' . $user->id) }}"
                       method="POST">
 
                     @csrf

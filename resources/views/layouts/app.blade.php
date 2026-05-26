@@ -26,14 +26,14 @@
 
             <div class="flex items-center gap-6">
 
-                <a href="/reports"
+                <a href="{{ url('/reports') }}"
                    class="text-white hover:text-green-200">
 
                     Reports
 
                 </a>
 
-                <a href="/dashboard"
+                <a href="{{ url('/dashboard') }}"
                    class="text-white hover:text-green-200">
 
                     Dashboard

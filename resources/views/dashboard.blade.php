@@ -91,14 +91,14 @@
 
         <div class="flex flex-wrap gap-4">
 
-            <a href="/reports"
+            <a href="{{ url('/reports') }}"
                class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow">
 
                 View Reports
 
             </a>
 
-            <a href="/reports/create"
+            <a href="{{ url('/reports/create') }}"
                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow">
 
                 Add Wildlife Report
@@ -107,7 +107,7 @@
 
             @if(auth()->user()->role === 'admin')
 
-                <a href="/admin/pending-users"
+                <a href="{{ url('/admin/pending-users') }}"
                    class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg shadow">
 
                     Manage Pending Users
