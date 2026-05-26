@@ -122,7 +122,7 @@
                     </td>
 
                     <td class="p-3 flex gap-2">
-
+                    @if(auth()->id() == $report->user_id || auth()->user()->role == 'admin')
                         <a href="/reports/{{ $report->id }}/edit"
                            class="bg-blue-500 text-white px-3 py-1 rounded">
 
@@ -144,6 +144,7 @@
                             </button>
 
                         </form>
+                        @endif
 
                     </td>
 

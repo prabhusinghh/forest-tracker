@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Report;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
@@ -63,7 +64,8 @@ class ReportController extends Controller
             'location' => $request->location,
             'status' => $request->status,
             'description' => $request->description,
-            'image' => $imagePath
+            'image' => $imagePath,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect('/reports');
