@@ -9,7 +9,15 @@
         <p class="text-center text-gray-500 mb-8">
             Wildlife Conservation Login
         </p>
+        @if(session('error'))
 
+    <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+
+        {{ session('error') }}
+
+    </div>
+
+@endif
         <form method="POST" action="{{ route('login') }}">
 
             @csrf
