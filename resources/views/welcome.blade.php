@@ -58,7 +58,7 @@
             <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/30 to-transparent"></div>
         </div>
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-32 md:pb-40">
             <span class="inline-block py-1 px-3 rounded-full bg-green-500/20 text-green-300 font-semibold text-sm mb-6 border border-green-500/30 backdrop-blur-sm">
                 Advanced Wildlife Conservation Platform
             </span>
