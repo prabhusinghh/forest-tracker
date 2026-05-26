@@ -15,14 +15,14 @@ class ReportController extends Controller
     if($request->species_name)
     {
         $query->where('species_name',
-            'LIKE',
+            'ILIKE',
             '%' . $request->species_name . '%');
     }
 
     if($request->location)
     {
         $query->where('location',
-            'LIKE',
+            'ILIKE',
             '%' . $request->location . '%');
     }
 

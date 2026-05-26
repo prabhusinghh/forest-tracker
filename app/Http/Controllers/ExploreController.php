@@ -16,7 +16,7 @@ class ExploreController extends Controller
 
         // Search by species name
         if ($request->has('search') && $request->search != '') {
-            $query->where('species_name', 'LIKE', '%' . $request->search . '%');
+            $query->where('species_name', 'ILIKE', '%' . $request->search . '%');
         }
 
         // Filter by status
