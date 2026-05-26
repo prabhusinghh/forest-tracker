@@ -74,13 +74,15 @@ class ReportController extends Controller
 
     $report = Report::create($reportData);
 
-    // Insert binary data separately for PostgreSQL compatibility
+    // Insert binary data using PDO PARAM_LOB for PostgreSQL bytea compatibility
     if($request->hasFile('image'))
     {
         $imageData = file_get_contents($request->file('image')->getRealPath());
-        \Illuminate\Support\Facades\DB::table('reports')
-            ->where('id', $report->id)
-            ->update(['image_data' => $imageData]);
+        $pdo = \Illuminate\Support\Facades\DB::connection()->getPdo();
+        $stmt = $pdo->prepare('UPDATE reports SET image_data = :data WHERE id = :id');
+        $stmt->bindParam(':data', $imageData, \PDO::PARAM_LOB);
+        $stmt->bindValue(':id', $report->id, \PDO::PARAM_INT);
+        $stmt->execute();
     }
 
         return redirect(url('/reports'));
@@ -138,13 +140,15 @@ class ReportController extends Controller
 
     $report->update($updateData);
 
-    // Insert binary data separately for PostgreSQL compatibility
+    // Insert binary data using PDO PARAM_LOB for PostgreSQL bytea compatibility
     if($request->hasFile('image'))
     {
         $imageData = file_get_contents($request->file('image')->getRealPath());
-        \Illuminate\Support\Facades\DB::table('reports')
-            ->where('id', $report->id)
-            ->update(['image_data' => $imageData]);
+        $pdo = \Illuminate\Support\Facades\DB::connection()->getPdo();
+        $stmt = $pdo->prepare('UPDATE reports SET image_data = :data WHERE id = :id');
+        $stmt->bindParam(':data', $imageData, \PDO::PARAM_LOB);
+        $stmt->bindValue(':id', $report->id, \PDO::PARAM_INT);
+        $stmt->execute();
     }
 
     return redirect(url('/reports'));
