@@ -30,8 +30,13 @@
 
                 <input type="email"
                        name="email"
+                       value="{{ old('email') }}"
                        required
-                       class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-green-500">
+                       class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-green-500 @error('email') border-red-500 @enderror">
+
+                @error('email')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
 
             </div>
 
@@ -44,7 +49,11 @@
                 <input type="password"
                        name="password"
                        required
-                       class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-green-500">
+                       class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-green-500 @error('password') border-red-500 @enderror">
+
+                @error('password')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
 
             </div>
 
