@@ -48,6 +48,8 @@ class ReportController extends Controller
         $request->validate([
     'species_name' => 'required|min:3',
     'location' => 'required',
+    'latitude' => 'nullable|numeric',
+    'longitude' => 'nullable|numeric',
     'status' => 'required',
     'description' => 'required|min:10',
      'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
@@ -62,6 +64,8 @@ class ReportController extends Controller
         Report::create([
             'species_name' => $request->species_name,
             'location' => $request->location,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'status' => $request->status,
             'description' => $request->description,
             'image' => $imagePath,
@@ -91,6 +95,8 @@ class ReportController extends Controller
     $request->validate([
     'species_name' => 'required|min:3',
     'location' => 'required',
+    'latitude' => 'nullable|numeric',
+    'longitude' => 'nullable|numeric',
     'status' => 'required',
     'description' => 'required|min:10',
     'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
@@ -114,6 +120,8 @@ class ReportController extends Controller
     $report->update([
         'species_name' => $request->species_name,
         'location' => $request->location,
+        'latitude' => $request->latitude,
+        'longitude' => $request->longitude,
         'status' => $request->status,
         'description' => $request->description,
         'image' => $imagePath

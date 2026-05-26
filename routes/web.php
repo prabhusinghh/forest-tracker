@@ -37,7 +37,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+use App\Http\Controllers\CommentController;
+
 Route::middleware('auth')->group(function () {
+    Route::post('/explore/{report}/comments', [CommentController::class, 'store']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');

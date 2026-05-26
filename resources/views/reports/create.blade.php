@@ -54,13 +54,52 @@
             <div class="mb-5">
 
                 <label class="block mb-2 font-semibold text-gray-700">
-                    Location
+                    Location Name
                 </label>
 
                 <input type="text"
                        name="location"
-                       placeholder="Enter forest/location"
-                       class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+                       placeholder="Enter forest/location (e.g. Amazon Rainforest)"
+                       class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500 mb-4">
+                
+                <label class="block mb-2 font-semibold text-gray-700">
+                    Pinpoint Exact Location (Click on Map)
+                </label>
+
+                <!-- Map Container -->
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+                <div id="map" class="w-full h-64 rounded-lg shadow-inner border border-gray-300 z-10 mb-2"></div>
+                
+                <!-- Hidden Coordinates -->
+                <input type="hidden" name="latitude" id="latitude">
+                <input type="hidden" name="longitude" id="longitude">
+                <p class="text-xs text-gray-500" id="coord-display">No coordinates selected.</p>
+
+                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Initialize map (default to world view or a specific region)
+                        var map = L.map('map').setView([20.0, 0.0], 2);
+                        
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 18,
+                            attribution: '© OpenStreetMap'
+                        }).addTo(map);
+
+                        var marker = null;
+
+                        map.on('click', function(e) {
+                            if (marker) {
+                                map.removeLayer(marker);
+                            }
+                            marker = L.marker(e.latlng).addTo(map);
+                            
+                            document.getElementById('latitude').value = e.latlng.lat.toFixed(8);
+                            document.getElementById('longitude').value = e.latlng.lng.toFixed(8);
+                            document.getElementById('coord-display').innerText = 'Selected: ' + e.latlng.lat.toFixed(5) + ', ' + e.latlng.lng.toFixed(5);
+                        });
+                    });
+                </script>
 
             </div>
 

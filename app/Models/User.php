@@ -23,6 +23,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     protected function casts(): array
     {
         return [

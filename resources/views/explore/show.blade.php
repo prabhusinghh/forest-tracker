@@ -64,11 +64,95 @@
             <div class="h-px bg-gray-100 w-full mb-8"></div>
 
             <!-- Description -->
-            <div>
+            <div class="mb-12">
                 <h3 class="text-lg font-bold text-gray-900 mb-4">Observation Details</h3>
                 <div class="prose max-w-none text-gray-600 leading-relaxed">
                     {{ $report->description }}
                 </div>
+            </div>
+
+            <!-- Map Location -->
+            @if($report->latitude && $report->longitude)
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Exact Location</h3>
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+                    <div id="show-map" class="w-full h-80 rounded-2xl shadow-inner border border-gray-200 z-10"></div>
+                    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var lat = {{ $report->latitude }};
+                            var lng = {{ $report->longitude }};
+                            var map = L.map('show-map').setView([lat, lng], 10);
+                            
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                maxZoom: 18,
+                                attribution: '© OpenStreetMap'
+                            }).addTo(map);
+
+                            L.marker([lat, lng]).addTo(map)
+                                .bindPopup("<b>{{ addslashes($report->species_name) }}</b><br>{{ addslashes($report->location) }}")
+                                .openPopup();
+                        });
+                    </script>
+                </div>
+            @endif
+
+            <!-- Divider -->
+            <div class="h-px bg-gray-100 w-full mb-8"></div>
+
+            <!-- Community Discussion (Comments) -->
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Community Discussion</h3>
+                
+                @if(session('success'))
+                    <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <!-- Comments List -->
+                <div class="space-y-6 mb-8">
+                    @forelse($report->comments as $comment)
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-bold text-gray-900">{{ $comment->user->name }}</span>
+                                <span class="text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</span>
+                            </div>
+                            <p class="text-gray-700">{{ $comment->body }}</p>
+                        </div>
+                    @empty
+                        <div class="text-center py-8 text-gray-500 bg-gray-50 rounded-2xl border border-gray-100 border-dashed">
+                            No comments yet. Be the first to start the discussion!
+                        </div>
+                    @endforelse
+                </div>
+
+                <!-- Add Comment Form -->
+                @auth
+                    <form action="{{ url('/explore/' . $report->id . '/comments') }}" method="POST">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="body" class="sr-only">Leave a comment</label>
+                            <textarea id="body" name="body" rows="3" class="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-green-500 focus:border-green-500" placeholder="Join the discussion... share your thoughts or verify this sighting!" required></textarea>
+                            @error('body')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:-translate-y-1">
+                                Post Comment
+                            </button>
+                        </div>
+                    </form>
+                @else
+                    <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-8 rounded-2xl border border-gray-200 text-center">
+                        <p class="text-gray-600 mb-4 font-medium">Log in or join to participate in the discussion.</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="{{ route('login') }}" class="bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 px-6 py-2 rounded-full font-bold shadow-sm transition-colors">Log in</a>
+                            <a href="{{ route('register') }}" class="bg-green-600 text-white hover:bg-green-500 px-6 py-2 rounded-full font-bold shadow-sm transition-colors">Join</a>
+                        </div>
+                    </div>
+                @endauth
             </div>
 
         </div>
