@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
     public function pendingUsers()
     {
-        $users = User::where('is_approved', false)->get();
+        $users = User::where('is_approved', false)->where('role', 'conservationist')->get();
 
         return view('admin.pending-users', compact('users'));
     }
