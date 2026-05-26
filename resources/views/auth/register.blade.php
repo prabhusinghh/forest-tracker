@@ -74,33 +74,60 @@
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <!-- Explorer Option -->
-                    <label class="group relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none border-gray-300 hover:bg-gray-50 has-[:checked]:border-green-500 has-[:checked]:ring-1 has-[:checked]:ring-green-500">
-                        <input type="radio" name="role" value="explorer" class="sr-only" checked>
-                        <span class="flex flex-1">
-                            <span class="flex flex-col">
-                                <span class="block text-sm font-bold text-gray-900">Public Explorer</span>
-                                <span class="mt-1 flex items-center text-sm text-gray-500">Join discussions & leave comments.</span>
-                            </span>
-                        </span>
-                        <svg class="h-5 w-5 text-green-600 hidden group-has-[:checked]:block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                    <label class="relative flex items-start cursor-pointer rounded-lg border bg-white p-4 shadow-sm border-gray-300 hover:bg-gray-50 focus:outline-none transition-all duration-200" id="label-explorer">
+                        <div class="flex items-center h-5 mt-0.5">
+                            <input type="radio" id="role-explorer" name="role" value="explorer" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 cursor-pointer" checked onchange="updateRoleSelection()">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <span class="block font-bold text-gray-900">Public Explorer</span>
+                            <span class="block mt-1 text-xs text-gray-500">Join discussions & leave comments.</span>
+                        </div>
                     </label>
 
                     <!-- Conservationist Option -->
-                    <label class="group relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none border-gray-300 hover:bg-gray-50 has-[:checked]:border-green-500 has-[:checked]:ring-1 has-[:checked]:ring-green-500">
-                        <input type="radio" name="role" value="conservationist" class="sr-only">
-                        <span class="flex flex-1">
-                            <span class="flex flex-col">
-                                <span class="block text-sm font-bold text-gray-900">Conservationist</span>
-                                <span class="mt-1 flex items-center text-sm text-gray-500">Submit reports. (Requires admin approval)</span>
-                            </span>
-                        </span>
-                        <svg class="h-5 w-5 text-green-600 hidden group-has-[:checked]:block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                    <label class="relative flex items-start cursor-pointer rounded-lg border bg-white p-4 shadow-sm border-gray-300 hover:bg-gray-50 focus:outline-none transition-all duration-200" id="label-conservationist">
+                        <div class="flex items-center h-5 mt-0.5">
+                            <input type="radio" id="role-conservationist" name="role" value="conservationist" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 cursor-pointer" onchange="updateRoleSelection()">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <span class="block font-bold text-gray-900">Conservationist</span>
+                            <span class="block mt-1 text-xs text-gray-500">Submit reports. (Requires admin approval)</span>
+                        </div>
                     </label>
                 </div>
                 @error('role')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
+            <script>
+                function updateRoleSelection() {
+                    const explorerRadio = document.getElementById('role-explorer');
+                    const conservationistRadio = document.getElementById('role-conservationist');
+                    const explorerLabel = document.getElementById('label-explorer');
+                    const conservationistLabel = document.getElementById('label-conservationist');
+
+                    if (explorerRadio && conservationistRadio && explorerLabel && conservationistLabel) {
+                        if (explorerRadio.checked) {
+                            explorerLabel.classList.add('border-green-500', 'ring-1', 'ring-green-500');
+                            explorerLabel.classList.remove('border-gray-300');
+                            conservationistLabel.classList.remove('border-green-500', 'ring-1', 'ring-green-500');
+                            conservationistLabel.classList.add('border-gray-300');
+                        } else {
+                            conservationistLabel.classList.add('border-green-500', 'ring-1', 'ring-green-500');
+                            conservationistLabel.classList.remove('border-gray-300');
+                            explorerLabel.classList.remove('border-green-500', 'ring-1', 'ring-green-500');
+                            explorerLabel.classList.add('border-gray-300');
+                        }
+                    }
+                }
+                // Run on boot
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', updateRoleSelection);
+                } else {
+                    updateRoleSelection();
+                }
+            </script>
 
             <button type="submit"
                     class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
