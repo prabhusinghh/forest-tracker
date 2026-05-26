@@ -54,12 +54,16 @@ class ReportController extends Controller
     'description' => 'required|min:10',
      'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
     ]);
-      $imagePath = null;
+      $imageData = null;
+    $imageMime = null;
+    $imageName = null;
 
     if($request->hasFile('image'))
     {
-        $imagePath = $request->file('image')
-                             ->store('reports', 'public');
+        $file = $request->file('image');
+        $imageData = file_get_contents($file->getRealPath());
+        $imageMime = $file->getMimeType();
+        $imageName = $file->getClientOriginalName();
     }
         Report::create([
             'species_name' => $request->species_name,
@@ -68,7 +72,9 @@ class ReportController extends Controller
             'longitude' => $request->longitude,
             'status' => $request->status,
             'description' => $request->description,
-            'image' => $imagePath,
+            'image' => $imageName,
+            'image_data' => $imageData,
+            'image_mime' => $imageMime,
             'user_id' => Auth::id(),
         ]);
 
@@ -109,23 +115,24 @@ class ReportController extends Controller
 {
     abort(403);
 }
-    $imagePath = $report->image;
-
-    if($request->hasFile('image'))
-    {
-        $imagePath = $request->file('image')
-                             ->store('reports', 'public');
-    }
-
-    $report->update([
+    $updateData = [
         'species_name' => $request->species_name,
         'location' => $request->location,
         'latitude' => $request->latitude,
         'longitude' => $request->longitude,
         'status' => $request->status,
         'description' => $request->description,
-        'image' => $imagePath
-    ]);
+    ];
+
+    if($request->hasFile('image'))
+    {
+        $file = $request->file('image');
+        $updateData['image'] = $file->getClientOriginalName();
+        $updateData['image_data'] = file_get_contents($file->getRealPath());
+        $updateData['image_mime'] = $file->getMimeType();
+    }
+
+    $report->update($updateData);
 
     return redirect(url('/reports'));
     }

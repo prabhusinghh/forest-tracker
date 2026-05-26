@@ -111,9 +111,9 @@
 
                     <td class="p-3">
 
-                        @if($report->image)
+                        @if($report->image_data)
 
-                            <img src="{{ asset('storage/' . $report->image) }}"
+                            <img src="{{ route('report.image', $report->id) }}"
                                  width="100"
                                  class="rounded">
 

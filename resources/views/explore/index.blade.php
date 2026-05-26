@@ -45,8 +45,8 @@
             <a href="{{ url('/explore/' . $report->id) }}" class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full transform hover:-translate-y-1">
                 <!-- Image Container -->
                 <div class="aspect-w-16 aspect-h-10 relative bg-gray-100 overflow-hidden">
-                    @if ($report->image)
-                        <img src="{{ asset('storage/' . $report->image) }}" alt="{{ $report->species_name }}" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    @if ($report->image_data)
+                        <img src="{{ route('report.image', $report->id) }}" alt="{{ $report->species_name }}" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
                     @else
                         <!-- Placeholder if no image -->
                         <div class="w-full h-64 flex flex-col items-center justify-center text-gray-400 bg-gray-50">

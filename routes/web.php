@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
@@ -14,6 +15,10 @@ Route::get('/', function () {
     ];
     return view('welcome', compact('stats'));
 });
+
+// Serve report images from database
+Route::get('/reports/{id}/image', [ImageController::class, 'show'])->name('report.image');
+
 
 use App\Http\Controllers\ExploreController;
 

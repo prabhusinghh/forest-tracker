@@ -167,7 +167,7 @@
 
             <!-- Current Image -->
 
-            @if($report->image)
+            @if($report->image_data)
 
                 <div class="mb-5">
 
@@ -175,7 +175,7 @@
                         Current Wildlife Image
                     </label>
 
-                    <img src="{{ asset('storage/' . $report->image) }}"
+                    <img src="{{ route('report.image', $report->id) }}"
                          class="w-48 rounded-lg shadow border">
 
                 </div>

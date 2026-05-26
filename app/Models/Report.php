@@ -14,7 +14,16 @@ class Report extends Model
         'status',
         'description',
         'image',
+        'image_data',
+        'image_mime',
         'user_id'
+    ];
+
+    /**
+     * Prevent large binary data from being included in JSON/array output.
+     */
+    protected $hidden = [
+        'image_data',
     ];
 
     public function user()
