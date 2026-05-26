@@ -16,7 +16,7 @@ test('new users can register as explorer and get auto-approved', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
+    $response->assertRedirect('/explore');
 
     $user = \App\Models\User::where('email', 'explorer@example.com')->first();
     expect($user->role)->toBe('explorer');

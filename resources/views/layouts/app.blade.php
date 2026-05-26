@@ -63,6 +63,7 @@
     <main class="max-w-7xl mx-auto p-6">
 
         @yield('content')
+        {{ $slot ?? '' }}
 
     </main>
 

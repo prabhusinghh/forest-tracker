@@ -30,9 +30,17 @@
                 <div class="hidden md:flex items-center space-x-4">
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
-                                Dashboard
-                            </a>
+                            @if(auth()->user()->role !== 'explorer')
+                                <a href="{{ url('/dashboard') }}" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
+                                    Dashboard
+                                </a>
+                            @endif
+                            <form action="{{ route('logout') }}" method="POST" class="inline">
+                                @csrf
+                                <button type="submit" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
+                                    Log out
+                                </button>
+                            </form>
                         @else
                             <a href="{{ route('login') }}" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
                                 Log in
@@ -61,7 +69,13 @@
                 @if (Route::has('login'))
                     <div class="mt-4 border-t border-gray-700 pt-4 pb-2">
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="block w-full text-center px-4 py-2 bg-green-600 hover:bg-green-500 rounded-md text-base font-medium text-white">Dashboard</a>
+                            @if(auth()->user()->role !== 'explorer')
+                                <a href="{{ url('/dashboard') }}" class="block w-full text-center px-4 py-2 bg-green-600 hover:bg-green-500 rounded-md text-base font-medium text-white mb-2">Dashboard</a>
+                            @endif
+                            <form action="{{ route('logout') }}" method="POST" class="block w-full">
+                                @csrf
+                                <button type="submit" class="block w-full text-center px-4 py-2 bg-red-600 hover:bg-red-500 rounded-md text-base font-medium text-white">Log out</button>
+                            </form>
                         @else
                             <a href="{{ route('login') }}" class="block w-full text-center px-4 py-2 bg-green-600 hover:bg-green-500 rounded-md text-base font-medium text-white">Log in</a>
                         @endauth

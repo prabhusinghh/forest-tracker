@@ -22,7 +22,7 @@ Route::get('/explore', [ExploreController::class, 'index']);
 Route::get('/explore/{id}', [ExploreController::class, 'show']);
 
 Route::resource('reports', ReportController::class)
-    ->middleware(['auth', 'approved']);
+    ->middleware(['auth', 'approved', \App\Http\Middleware\ConservationistOrAdminMiddleware::class]);
 Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/pending-users',
@@ -34,6 +34,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });    
 
 Route::get('/dashboard', function () {
+    if (auth()->user()->role === 'explorer') {
+        return redirect('/explore');
+    }
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

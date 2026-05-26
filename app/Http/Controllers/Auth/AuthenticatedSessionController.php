@@ -37,6 +37,11 @@ class AuthenticatedSessionController extends Controller
             return redirect('/admin/pending-users');
         }
 
+        if(Auth::check() && Auth::user()->role === 'explorer')
+        {
+            return redirect('/explore');
+        }
+
         return redirect()->route('dashboard');
     }
 
