@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome', compact('stats'));
 });
 
+use App\Http\Controllers\ExploreController;
+
+// Public Explorer Routes
+Route::get('/explore', [ExploreController::class, 'index']);
+Route::get('/explore/{id}', [ExploreController::class, 'show']);
+
 Route::resource('reports', ReportController::class)
     ->middleware(['auth', 'approved']);
 Route::middleware(['auth', 'admin'])->group(function () {

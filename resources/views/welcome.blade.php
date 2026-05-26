@@ -70,7 +70,7 @@
                 Join our global network of conservationists. Track, report, and analyze wildlife data to protect endangered species and preserve natural habitats.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="{{ url('/reports') }}" class="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 shadow-xl">
+                <a href="{{ url('/explore') }}" class="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 shadow-xl">
                     Explore Reports
                 </a>
                 <a href="{{ route('register') }}" class="bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 shadow-xl shadow-green-600/30 flex items-center justify-center gap-2">
@@ -132,7 +132,7 @@
                     <div class="p-6">
                         <h4 class="text-xl font-bold text-gray-900 mb-2">Bengal Tiger</h4>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-2">A majestic apex predator vital to the health of diverse forest ecosystems across Asia.</p>
-                        <a href="{{ url('/reports?species_name=tiger') }}" class="text-green-600 font-semibold hover:text-green-700 flex items-center text-sm">
+                        <a href="{{ url('/explore?search=tiger') }}" class="text-green-600 font-semibold hover:text-green-700 flex items-center text-sm">
                             View Reports <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </a>
                     </div>
@@ -147,7 +147,7 @@
                     <div class="p-6">
                         <h4 class="text-xl font-bold text-gray-900 mb-2">Asian Elephant</h4>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-2">Magnificent ecosystem engineers that shape their forest habitats and support biodiversity.</p>
-                        <a href="{{ url('/reports?species_name=elephant') }}" class="text-green-600 font-semibold hover:text-green-700 flex items-center text-sm">
+                        <a href="{{ url('/explore?search=elephant') }}" class="text-green-600 font-semibold hover:text-green-700 flex items-center text-sm">
                             View Reports <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </a>
                     </div>
@@ -162,7 +162,7 @@
                     <div class="p-6">
                         <h4 class="text-xl font-bold text-gray-900 mb-2">Red Panda</h4>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-2">Unique arboreal mammals native to the eastern Himalayas and southwestern China.</p>
-                        <a href="{{ url('/reports?species_name=panda') }}" class="text-green-600 font-semibold hover:text-green-700 flex items-center text-sm">
+                        <a href="{{ url('/explore?search=panda') }}" class="text-green-600 font-semibold hover:text-green-700 flex items-center text-sm">
                             View Reports <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </a>
                     </div>
@@ -177,7 +177,7 @@
                     <div class="p-6">
                         <h4 class="text-xl font-bold text-gray-900 mb-2">Indian Rhinoceros</h4>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-2">Powerful herbivores with armor-like skin, found in the grasslands and forests of the Indian subcontinent.</p>
-                        <a href="{{ url('/reports?species_name=rhino') }}" class="text-green-600 font-semibold hover:text-green-700 flex items-center text-sm">
+                        <a href="{{ url('/explore?search=rhino') }}" class="text-green-600 font-semibold hover:text-green-700 flex items-center text-sm">
                             View Reports <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </a>
                     </div>
