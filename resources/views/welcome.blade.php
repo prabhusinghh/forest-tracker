@@ -21,30 +21,27 @@
                 <div class="flex-shrink-0 flex items-center">
                     <span class="text-2xl font-bold text-white tracking-tight">Forest<span class="text-green-400">Tracker</span></span>
                 </div>
+                <!-- Desktop Links (Hidden on mobile) -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#mission" class="text-white/90 hover:text-white font-medium transition-colors">Mission</a>
                     <a href="#stats" class="text-white/90 hover:text-white font-medium transition-colors">Impact</a>
                     <a href="#species" class="text-white/90 hover:text-white font-medium transition-colors">Species</a>
-                    
-                    @if (Route::has('login'))
-                        <div class="flex items-center space-x-4 ml-6 pl-6 border-l border-white/20">
-                            @auth
-                                <a href="{{ url('/dashboard') }}" class="text-white font-semibold hover:text-green-300 transition-colors">
-                                    Dashboard
-                                </a>
-                            @else
-                                <a href="{{ route('login') }}" class="text-white font-medium hover:text-green-300 transition-colors">
-                                    Log in
-                                </a>
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="bg-green-500 hover:bg-green-400 text-white px-5 py-2.5 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg shadow-green-500/30">
-                                        Join Conservationists
-                                    </a>
-                                @endif
-                            @endauth
-                        </div>
-                    @endif
                 </div>
+
+                <!-- Always visible Auth Links -->
+                @if (Route::has('login'))
+                    <div class="flex items-center space-x-4">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="text-white font-semibold hover:text-green-300 transition-colors">
+                                Dashboard
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="text-white font-medium hover:text-green-300 transition-colors">
+                                Log in
+                            </a>
+                        @endauth
+                    </div>
+                @endif
             </div>
         </div>
     </nav>

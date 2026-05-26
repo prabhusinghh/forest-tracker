@@ -21,28 +21,25 @@
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ url('/') }}" class="text-xl font-bold text-white tracking-tight">Forest<span class="text-green-400">Tracker</span></a>
                 </div>
+                <!-- Desktop Links (Hidden on mobile) -->
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="{{ url('/explore') }}" class="text-white hover:text-green-300 font-medium transition-colors">Explorer</a>
-                    
-                    @if (Route::has('login'))
-                        <div class="flex items-center space-x-4 ml-6 pl-6 border-l border-gray-700">
-                            @auth
-                                <a href="{{ url('/dashboard') }}" class="text-white font-semibold hover:text-green-300 transition-colors">
-                                    Dashboard
-                                </a>
-                            @else
-                                <a href="{{ route('login') }}" class="text-white font-medium hover:text-green-300 transition-colors">
-                                    Log in
-                                </a>
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
-                                        Join
-                                    </a>
-                                @endif
-                            @endauth
-                        </div>
-                    @endif
                 </div>
+
+                <!-- Always visible Auth Links -->
+                @if (Route::has('login'))
+                    <div class="flex items-center space-x-4">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="text-white font-semibold hover:text-green-300 transition-colors">
+                                Dashboard
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="text-white font-medium hover:text-green-300 transition-colors">
+                                Log in
+                            </a>
+                        @endauth
+                    </div>
+                @endif
             </div>
         </div>
     </nav>
