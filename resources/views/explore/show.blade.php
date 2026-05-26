@@ -50,12 +50,12 @@
                     </div>
                 </div>
                 <div>
-                    @if($report->status == 'Endangered' || $report->status == 'Critically Endangered')
+                    @if($report->status == 'Endangered' || $report->status == 'Critical')
                         <span class="inline-block bg-red-50 text-red-700 border border-red-200 text-sm font-bold px-4 py-2 rounded-full shadow-sm">{{ $report->status }}</span>
-                    @elseif($report->status == 'Extinct')
-                        <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 text-sm font-bold px-4 py-2 rounded-full shadow-sm">{{ $report->status }}</span>
-                    @else
+                    @elseif($report->status == 'Protected')
                         <span class="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-sm font-bold px-4 py-2 rounded-full shadow-sm">{{ $report->status }}</span>
+                    @else
+                        <span class="inline-block bg-gray-50 text-gray-700 border border-gray-200 text-sm font-bold px-4 py-2 rounded-full shadow-sm">{{ $report->status }}</span>
                     @endif
                 </div>
             </div>

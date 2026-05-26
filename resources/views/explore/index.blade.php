@@ -22,10 +22,9 @@
                 <label for="status" class="sr-only">Filter by Status</label>
                 <select name="status" id="status" class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm py-3 px-4">
                     <option value="">All Statuses</option>
-                    <option value="Stable" {{ request('status') == 'Stable' ? 'selected' : '' }}>Stable</option>
                     <option value="Endangered" {{ request('status') == 'Endangered' ? 'selected' : '' }}>Endangered</option>
-                    <option value="Critically Endangered" {{ request('status') == 'Critically Endangered' ? 'selected' : '' }}>Critically Endangered</option>
-                    <option value="Extinct" {{ request('status') == 'Extinct' ? 'selected' : '' }}>Extinct</option>
+                    <option value="Protected" {{ request('status') == 'Protected' ? 'selected' : '' }}>Protected</option>
+                    <option value="Critical" {{ request('status') == 'Critical' ? 'selected' : '' }}>Critical</option>
                 </select>
             </div>
             <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-8 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center">
@@ -58,12 +57,12 @@
                     
                     <!-- Status Badge -->
                     <div class="absolute top-4 right-4">
-                        @if($report->status == 'Endangered' || $report->status == 'Critically Endangered')
+                        @if($report->status == 'Endangered' || $report->status == 'Critical')
                             <span class="bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">{{ $report->status }}</span>
-                        @elseif($report->status == 'Extinct')
-                            <span class="bg-gray-800 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">{{ $report->status }}</span>
-                        @else
+                        @elseif($report->status == 'Protected')
                             <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">{{ $report->status }}</span>
+                        @else
+                            <span class="bg-gray-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">{{ $report->status }}</span>
                         @endif
                     </div>
                 </div>
