@@ -15,7 +15,7 @@
 <body class="font-sans antialiased text-gray-900 bg-gray-50 selection:bg-green-500 selection:text-white">
 
     <!-- Navigation -->
-    <nav class="absolute top-0 w-full z-50 bg-transparent">
+    <nav class="absolute top-0 w-full z-50 bg-transparent" x-data="{ open: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex-shrink-0 flex items-center">
@@ -28,17 +28,46 @@
                     <a href="#species" class="text-white/90 hover:text-white font-medium transition-colors">Species</a>
                 </div>
 
-                <!-- Always visible Auth Links -->
-                @if (Route::has('login'))
-                    <div class="flex items-center space-x-4">
+                <!-- Always visible Auth Links (Desktop) -->
+                <div class="hidden md:flex items-center space-x-4">
+                    @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="text-white font-semibold hover:text-green-300 transition-colors">
+                            <a href="{{ url('/dashboard') }}" class="bg-green-600 hover:bg-green-500 text-white px-5 py-2.5 rounded-full font-semibold transition-all shadow-lg">
                                 Dashboard
                             </a>
                         @else
-                            <a href="{{ route('login') }}" class="text-white font-medium hover:text-green-300 transition-colors">
+                            <a href="{{ route('login') }}" class="bg-green-600 hover:bg-green-500 text-white px-5 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-green-500/30">
                                 Log in
                             </a>
+                        @endauth
+                    @endif
+                </div>
+
+                <!-- Hamburger menu button (Mobile only) -->
+                <div class="flex items-center md:hidden">
+                    <button @click="open = !open" type="button" class="text-white hover:text-gray-300 focus:outline-none p-2">
+                        <svg class="h-8 w-8" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{'hidden': open, 'inline-flex': !open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" class="md:hidden bg-gray-900/95 backdrop-blur-sm border-b border-gray-800" style="display: none;">
+            <div class="px-4 pt-2 pb-4 space-y-2 sm:px-6">
+                <a href="#mission" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Mission</a>
+                <a href="#stats" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Impact</a>
+                <a href="#species" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Species</a>
+                
+                @if (Route::has('login'))
+                    <div class="mt-4 border-t border-gray-700 pt-4 pb-2">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="block w-full text-center px-4 py-3 bg-green-600 hover:bg-green-500 rounded-lg text-base font-bold text-white">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="block w-full text-center px-4 py-3 bg-green-600 hover:bg-green-500 rounded-lg text-base font-bold text-white shadow-lg shadow-green-600/30">Log in</a>
                         @endauth
                     </div>
                 @endif
