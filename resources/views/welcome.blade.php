@@ -187,13 +187,8 @@
     </section>
 
     <!-- Call to Action Section -->
-    <section class="bg-green-700 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-                <defs><pattern id="pattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40L40 0H20L0 20M40 40V20L20 40" stroke="white" stroke-width="2" fill="none"/></pattern></defs>
-                <rect width="100%" height="100%" fill="url(#pattern)" />
-            </svg>
-        </div>
+    <section class="bg-gradient-to-br from-green-800 to-green-600 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 relative z-10 text-center">
             <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
                 <span class="block">Ready to make an impact?</span>
