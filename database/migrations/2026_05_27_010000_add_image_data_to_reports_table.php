@@ -12,17 +12,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reports', function (Blueprint $table) {
-            $table->string('image_mime')->nullable()->after('image');
-        });
-
-        // Use raw SQL for the large binary column to avoid size limits
         $driver = Schema::getConnection()->getDriverName();
 
-        if ($driver === 'pgsql') {
-            DB::statement('ALTER TABLE reports ADD COLUMN image_data BYTEA NULL');
-        } else {
-            DB::statement('ALTER TABLE reports ADD COLUMN image_data LONGBLOB NULL');
+        // Add image_mime column
+        if (!Schema::hasColumn('reports', 'image_mime')) {
+            Schema::table('reports', function (Blueprint $table) {
+                $table->string('image_mime')->nullable();
+            });
+        }
+
+        // Add image_data column with proper large binary type
+        if (!Schema::hasColumn('reports', 'image_data')) {
+            if ($driver === 'pgsql') {
+                DB::statement('ALTER TABLE reports ADD COLUMN image_data BYTEA NULL');
+            } else {
+                DB::statement('ALTER TABLE reports ADD COLUMN image_data LONGBLOB NULL');
+            }
         }
     }
 

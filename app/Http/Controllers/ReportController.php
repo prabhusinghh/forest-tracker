@@ -54,29 +54,34 @@ class ReportController extends Controller
     'description' => 'required|min:10',
      'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
     ]);
-      $imageData = null;
-    $imageMime = null;
-    $imageName = null;
+
+    $reportData = [
+        'species_name' => $request->species_name,
+        'location' => $request->location,
+        'latitude' => $request->latitude,
+        'longitude' => $request->longitude,
+        'status' => $request->status,
+        'description' => $request->description,
+        'user_id' => Auth::id(),
+    ];
 
     if($request->hasFile('image'))
     {
         $file = $request->file('image');
-        $imageData = file_get_contents($file->getRealPath());
-        $imageMime = $file->getMimeType();
-        $imageName = $file->getClientOriginalName();
+        $reportData['image'] = $file->getClientOriginalName();
+        $reportData['image_mime'] = $file->getMimeType();
     }
-        Report::create([
-            'species_name' => $request->species_name,
-            'location' => $request->location,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-            'status' => $request->status,
-            'description' => $request->description,
-            'image' => $imageName,
-            'image_data' => $imageData,
-            'image_mime' => $imageMime,
-            'user_id' => Auth::id(),
-        ]);
+
+    $report = Report::create($reportData);
+
+    // Insert binary data separately for PostgreSQL compatibility
+    if($request->hasFile('image'))
+    {
+        $imageData = file_get_contents($request->file('image')->getRealPath());
+        \Illuminate\Support\Facades\DB::table('reports')
+            ->where('id', $report->id)
+            ->update(['image_data' => $imageData]);
+    }
 
         return redirect(url('/reports'));
     }
@@ -128,11 +133,19 @@ class ReportController extends Controller
     {
         $file = $request->file('image');
         $updateData['image'] = $file->getClientOriginalName();
-        $updateData['image_data'] = file_get_contents($file->getRealPath());
         $updateData['image_mime'] = $file->getMimeType();
     }
 
     $report->update($updateData);
+
+    // Insert binary data separately for PostgreSQL compatibility
+    if($request->hasFile('image'))
+    {
+        $imageData = file_get_contents($request->file('image')->getRealPath());
+        \Illuminate\Support\Facades\DB::table('reports')
+            ->where('id', $report->id)
+            ->update(['image_data' => $imageData]);
+    }
 
     return redirect(url('/reports'));
     }
